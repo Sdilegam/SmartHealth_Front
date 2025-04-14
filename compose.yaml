@@ -1,0 +1,9 @@
+services:
+  SmartHealth_Client:
+    image: smarthealth_client
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 8003:4200
+
