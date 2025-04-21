@@ -1,0 +1,18 @@
+.avatar{
+  width:7rem;
+  height:7rem;
+  background-image: url("https://pascale.com.au/wp-content/uploads/2022/04/avatar-placeholder-300x300-1.gif");
+  background-size: cover;
+}
+
+.detailRow
+{
+  span{
+    display: block;
+  }
+  span:has(+span){
+    font-size:0.9rem;
+    color:var(--color-gray-500);
+  }
+}
+

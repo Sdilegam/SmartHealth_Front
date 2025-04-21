@@ -4,7 +4,7 @@ import Aura from "@primeng/themes/Aura"
 export const MyPreset = definePreset(Aura, {
   name: "MyPreset",
   semantic:{
-    primary: palette("#fcb603")
+    primary: palette("#c38cea")
   }
 });
 

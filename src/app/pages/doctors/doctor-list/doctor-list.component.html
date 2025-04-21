@@ -1,0 +1,91 @@
+<script src="../register-member/register-member.component.ts"></script>
+<script src="tournament-list.component.ts"></script>
+<p-button
+  styleClass="mb-2"
+  routerLink="create"
+  label="Ajouter un tournoi"/>
+
+
+<p-card>
+  <ng-template #title>
+    Liste des tournois
+  </ng-template>
+  <p-table [columns]="Columns" dataKey="doctorID" [value]="doctorList" [tableStyle]="{ 'min-width': '60rem' }"
+           [expandedRowKeys]="expandedRows">
+    <ng-template #header let-columns>
+      <tr>
+        @for (col of columns; track col) {
+          <th>
+            {{ col.Name }}
+          </th>
+        }
+      </tr>
+    </ng-template>
+    <ng-template #body let-item let-expanded="expanded">
+      <tr>
+        <td>
+          <img class="avatar rounded-xl" src="{{ item['avatar'] }}" alt="">
+        </td>
+        <td routerLink="/doctor/{{item['id']}}">
+          Dr {{ item['firstName'] + " " + item['lastName'] }}
+        </td>
+        <td>
+          {{ item['address'].number }}, {{ item['address'].street }}
+          <br>{{ item['address'].zip }} {{ item['address'].city }}
+        </td>
+        <td>
+          {{getLanguageNamesFromFlags(item.languageSpoken)}}
+        </td>
+        <td>
+          <p-button type="button" [pRowToggler]="item" [text]="true" [rounded]="true" [plain]="true"
+                    [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"/>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template #expandedrow let-item>
+      <tr>
+        <td [attr.colspan]='Columns.length'>
+          <div class="grid grid-cols-3 p-4 gap-4 detailRow">
+            <div>
+              <span>Nom:</span>
+              <span>
+                Docteur {{ item['firstName'] + " " + item['lastName'] }}
+              </span>
+            </div>
+            <div>
+              <span>Addresse:</span>
+              <span>
+                {{ item['address'].number }}, {{ item['address'].street }}
+                <br>{{ item['address'].zip }} {{ item['address'].city }}
+              </span>
+            </div>
+            <div>
+              <span>Langue parlées:</span>
+              <span>
+                {{getLanguageNamesFromFlags(item.languageSpoken)}}
+              </span>
+            </div>
+            <div class="col-start-1">
+              <span>Email:</span>
+              <span>
+                {{ item['email'] }}
+              </span>
+            </div>
+            <div>
+              <span>Numero de telephone:</span>
+              <span>
+                {{ item['phoneNumber'] }}
+              </span>
+            </div>
+            <div class="row-start-3 col-start-3">
+              <p-button label="Voir disponibilités" routerLink="/doctor/{{item.doctorID}}"></p-button>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <ng-template #footer>
+  </ng-template>
+</p-card>
+

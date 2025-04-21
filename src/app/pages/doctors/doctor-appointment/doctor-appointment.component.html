@@ -1,0 +1,15 @@
+<p-card>
+  <ng-template #title>
+    Prendre rendez-vous
+  </ng-template>
+  <p-button (onClick)="nextWeek()" label="test"></p-button>
+  <full-calendar #calendar [options]="calendarOptions">
+    <ng-template #eventContent let-arg>
+      <b>{{ arg.timeText }}</b>
+      <i>{{ arg.event.title }}</i>
+    </ng-template>
+  </full-calendar>
+
+</p-card>
+
+
