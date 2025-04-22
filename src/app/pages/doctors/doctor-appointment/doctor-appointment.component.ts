@@ -1,4 +1,4 @@
-import {Component, ViewChild, OnInit, inject, AfterViewInit} from '@angular/core';
+import {Component, ViewChild, OnInit, inject, AfterViewInit, AfterViewChecked} from '@angular/core';
 import { CalendarOptions, DateSelectArg } from '@fullcalendar/core';
 import {FullCalendarComponent, FullCalendarModule} from '@fullcalendar/angular';
 import resourceTimeGridPlugin  from '@fullcalendar/resource-timegrid';
@@ -38,7 +38,11 @@ export class DoctorAppointmentComponent {
     selectable: true,
     dayMaxEvents: true,
     selectConstraint: "businessHours",
+    slotDuration:"00:30:00",
+    snapDuration:"00:05:00",
+    allDaySlot:false,
     selectOverlap:false,
+    eventConstraint:"businessHours",
     eventOverlap:false,
     forceEventDuration:true,
     defaultTimedEventDuration:"01:30",
@@ -55,22 +59,37 @@ export class DoctorAppointmentComponent {
     inject(ActivatedRoute).params.subscribe(params => this.doctorID = params['id']);
   }
   ngAfterViewInit() {
-    this.updateData
+    console.log('ngAfterViewInit');
+     this.updateData()
   }
   nextWeek(){
-    let calendarApi = this.calendarComponent.getApi()
+    let calendarApi = this.calendarComponent.getApi();
     calendarApi.next();
     this.updateData()
   }
   updateData(){
     let calendarApi = this.calendarComponent.getApi()
+    if (calendarApi.getCurrentData().dateProfile.renderRange.end < new Date(Date.now())){
+      this.calendarOptions.businessHours={
+        daysOfWeek: [1],
+        startTime: '12:00',
+        endTime: '12:00',
+      };
+    }
+    else{
     this.doctorService.getDoctorAvailability(this.doctorID, calendarApi.getCurrentData().dateProfile.renderRange)
       .subscribe({next: data => {
           console.log(data)
           this.calendarOptions.businessHours=data.workingHours;
-          console.log(data.slotsTaken.map(function(v){ return {start:v.startDate, end:v.endDate, display:'background'} }))
-          this.calendarOptions.events= data.slotsTaken.map(function(v){ return {start:v.startDate, end:v.endDate, display:'background'} });
+          this.calendarOptions.events= data.slotsTaken
+            .map(function(v){
+              const startDate:Date = new Date(v.startDate)
+              const endDate:Date = new Date(v.endDate)
+              const title:string= `${startDate.getHours().toString().padStart(2, "0")}:${startDate.getMinutes().toString().padStart(2, "0")} - ${endDate.getHours().toString().padStart(2, "0")}:${endDate.getMinutes().toString().padStart(2, "0")}`;
+              return {start:startDate, end:endDate, display:'background', classNames:v.classNames, title: title};
+            });
         }})
+    }
   }
   handleDateSelect(selectInfo: DateSelectArg) {
     const title = prompt('Please enter a new title for your event');

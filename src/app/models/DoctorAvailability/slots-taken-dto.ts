@@ -1,4 +1,5 @@
 export interface SlotsTakenDTO {
-  startDate :Date
-  endDate :Date
+  startDate :string
+  endDate :string
+  classNames: string[]
 }
