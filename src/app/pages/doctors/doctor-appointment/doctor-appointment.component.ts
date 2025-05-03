@@ -188,3 +188,5 @@ export class DoctorAppointmentComponent {
   protected readonly AppointmentType = AppointmentType;
 }
 
+
+
