@@ -1,0 +1,14 @@
+.detailRow
+{
+  span{
+    display: block;
+  }
+  span:has(+span){
+    font-size:0.9rem;
+    color:var(--color-gray-500);
+  }
+}
+
+p-button button span{
+  font-size: 0.6rem;
+}

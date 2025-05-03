@@ -1,0 +1,49 @@
+<h1 class="text-xl font-bold mb-2">Accueil</h1>
+
+<div class="grid grid-cols-8 grid-rows-4 gap-4">
+  <p-card class="col-span-5">
+    <ng-template #title>
+      <div class="flex">
+        <span>Prochains rendez-vous</span>
+        <p-button class="ml-auto" size=small routerLink='appointment/{{userId}}' label="Voir tout"></p-button>
+      </div>
+    </ng-template>
+    @if (appointmentList.length>0){
+    @for (item of appointmentList; track $index) {
+      <div>
+      {{item.StartDate | date:"medium" }}: {{item.Doctor.Name}}
+        <hr class="text-gray-200">
+      </div>
+    }
+    }
+    @else{
+      Vous n'avez aucun rendez-vous de prévu
+    }
+  </p-card>
+  <p-card styleClass="h-full" class="col-span-3 row-span-4">
+    <ng-template #title>
+      <div class="flex">
+        <span>Résumé de vos informations</span>
+      </div>
+    </ng-template>
+    <div>
+      <span>Nom:</span>
+      <span>{{userInfo?.displayName}}</span>
+    </div>
+    <div>
+      <span>Adresse:</span>
+      <span>
+        {{ userInfo?.address?.number }}, {{ userInfo?.address?.street }}
+        <br>{{ userInfo?.address?.zip }} {{ userInfo?.address?.city }}
+      </span>
+    </div>
+    <div>
+      <span>Email:</span>
+      <span>{{userInfo?.email}}</span>
+    </div>
+    <div>
+      <span>Numéro de téléphone:</span>
+      <span>{{userInfo?.phoneNumber ?? "Pas d'informations"}}</span>
+    </div>
+  </p-card>
+</div>

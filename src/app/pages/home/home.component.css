@@ -1,0 +1,10 @@
+span{
+  display: block;
+}
+span:has(+span){
+  font-size:0.9rem;
+  color:var(--color-gray-500);
+  &+span{
+    margin-left: 0.4rem;
+  }
+}

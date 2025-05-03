@@ -1,16 +1,11 @@
 <script src="../register-member/register-member.component.ts"></script>
 <script src="tournament-list.component.ts"></script>
-<p-button
-  styleClass="mb-2"
-  routerLink="create"
-  label="Ajouter un tournoi"/>
-
 
 <p-card>
   <ng-template #title>
-    Liste des tournois
+    Liste des medecins
   </ng-template>
-  <p-table [columns]="Columns" dataKey="doctorID" [value]="doctorList" [tableStyle]="{ 'min-width': '60rem' }"
+  <p-table [columns]="Columns" dataKey="doctorID" [value]="doctorList" [scrollable]="true" scrollHeight="flex" [tableStyle]="{ 'min-width': '60rem' }"
            [expandedRowKeys]="expandedRows">
     <ng-template #header let-columns>
       <tr>
@@ -27,7 +22,12 @@
           <img class="avatar rounded-xl" src="{{ item['avatar'] }}" alt="">
         </td>
         <td routerLink="/doctor/{{item['id']}}">
-          Dr {{ item['firstName'] + " " + item['lastName'] }}
+          <span>
+            {{getDoctorSpecialityName(item.speciality)}}
+          </span>
+          <span>
+          Dr. {{ item['lastName'] + ' ' + item['firstName'][0] + "." }}
+          </span>
         </td>
         <td>
           {{ item['address'].number }}, {{ item['address'].street }}
@@ -49,7 +49,7 @@
             <div>
               <span>Nom:</span>
               <span>
-                Docteur {{ item['firstName'] + " " + item['lastName'] }}
+                Dr. {{ item['firstName'] + " " + item['lastName'] }}
               </span>
             </div>
             <div>
@@ -77,7 +77,7 @@
                 {{ item['phoneNumber'] }}
               </span>
             </div>
-            <div class="row-start-3 col-start-3">
+            <div class="row-start-3 col-start-3 justify-self-end">
               <p-button label="Voir disponibilités" routerLink="/doctor/{{item.doctorID}}"></p-button>
             </div>
           </div>

@@ -4,6 +4,9 @@
   "newProjectRoot": "projects",
   "projects": {
     "SmartHealth_Front": {
+      "i18n": {
+        "sourceLocale": "fr-BE"
+      },
       "projectType": "application",
       "schematics": {
         "@schematics/angular:class": {

@@ -2,14 +2,38 @@
   <ng-template #title>
     Prendre rendez-vous
   </ng-template>
-  <p-button (onClick)="nextWeek()" label="test"></p-button>
   <full-calendar #calendar [options]="calendarOptions">
     <ng-template #eventContent let-arg>
       <b>{{ arg.timeText }}</b>
       <i>{{ arg.event.title }}</i>
     </ng-template>
   </full-calendar>
-
 </p-card>
+
+<p-confirmdialog #test>
+  <ng-template #message let-message>
+    <form [formGroup]="newAppointmentForm" class="card flex justify-center" class="flex flex-col gap-4">
+      <p-select [options]="appointmentTypes" fluid="true"  scrollHeight="7rem" optionValue="value" formControlName="type" [filter]="true" filterBy="label"
+                placeholder="Type de consultation" optionLabel="label"/>
+      <textarea rows="5" cols="30" pTextarea formControlName="notes"></textarea>
+    </form>
+  </ng-template>
+  <ng-template #footer>
+    <p-button type="button" pButton
+              icon="pi pi-times" label="Annuler"
+              severity=danger
+              (click)="test.onReject()"
+              class="mr-auto"
+    >
+    </p-button>
+    <p-button type="button" pButton
+              icon="pi pi-times" label="Prendre rendez-vous"
+              (click)="test.onAccept()"
+              [disabled]="newAppointmentForm.invalid"
+
+    >
+    </p-button>
+  </ng-template>
+</p-confirmdialog>
 
 

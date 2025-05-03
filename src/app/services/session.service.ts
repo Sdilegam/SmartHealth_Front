@@ -21,7 +21,7 @@ export class SessionService {
       isAuthenticated: true,
       token,
       expires: new Date(decodedToken.exp * 1000),
-      email: decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'],
+      name: decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'],
       id: decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'],
       role: decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']
     });

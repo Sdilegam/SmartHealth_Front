@@ -1,4 +1,23 @@
-<p-button icon="pi pi-equals" (onClick)="toggleSide()" />
+<p-button icon="pi pi-equals" variant=text size=small (onClick)="toggleSide()" />
 
-<p>SmartHealth</p>
+<a class="inline-block" routerLink="">SmartHealth @if(sessionService.session().token) { - }{{sessionService.session().role}}</a>
 
+@if (!sessionService.session().token){
+<p-button variant="text" icon="pi pi-user" routerLink="login" />
+} @else {
+  <p-menu styleClass="text-xs" #menu [model]="items" [popup]="true">
+    <ng-template #item let-item>
+      <ng-container>
+        <a [routerLink]="item.route" class="p-menu-item-link">
+          <span [class]="item.icon"></span>
+          <span class="ml-2">{{ item.label }}</span>
+        </a>
+      </ng-container>
+      <ng-template #elseBlock>
+        <span [class]="item.icon"></span>
+        <span class="ml-2">{{ item.label }}</span>
+      </ng-template>
+    </ng-template>
+  </p-menu>
+  <p-button class="whiteBtn" variant="text" label="{{sessionService.session().name}}" (click)="menu.toggle($event)"/>
+}

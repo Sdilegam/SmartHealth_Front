@@ -1,0 +1,57 @@
+@if (appointmentList.length>0) {
+
+
+@for (item of appointmentList; track $index) {
+  <p-card styleClass="mb-2">
+    <ng-template #title>
+      <div class="flex items-center">
+      <p-tag styleClass="mr-4" [rounded]="true" [severity]="item.Severtity" [value]="AppointmentStatusLabels[item.Status]"></p-tag>
+      {{ item.StartDate | date:"medium" }}
+      </div>
+    </ng-template>
+    <div class='grid grid-cols-[auto_auto_auto_auto] detailRow justify-between'>
+      <div>
+        <span>
+          Medecin:
+        </span>
+        <span>
+          {{ item.Doctor.Name }}
+        </span>
+      </div>
+      <div>
+        <span>
+          Type de consultation:
+        </span>
+        <span>
+          {{ AppointmentTypeLabels[item.Type] }}
+        </span>
+      </div>
+      <div>
+        <span>
+          Statut de paiement:
+        </span>
+        <span>
+          {{ AppointmentTypeLabels[item.Type] }}
+        </span>
+      </div>
+      <div class="flex row-span-2 gap-x-1 justify-end">
+        <p-button class="text-xs" styleClass="text-xs" severity=danger size="small" label="Annuler le rdv" (click)="confirm1($event, item.AppointmentID)" />
+        <p-button styleClass="text-xs" severity=warn size="small" label="Repousser le rdv"/>
+        <p-button styleClass="text-xs" severity=info size="small" label="Details"/>
+      </div>
+      <div>
+        <span>
+        </span>
+      </div>
+    </div>
+  </p-card>
+}
+} @else {
+  <p-card>
+    <ng-template #title>
+      Aucun rendez-vous a afficher
+    </ng-template>
+  </p-card>
+}
+<p-confirm-dialog></p-confirm-dialog>
+

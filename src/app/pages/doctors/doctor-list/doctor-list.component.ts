@@ -7,7 +7,8 @@ import {Card} from 'primeng/card';
 import {TableModule} from 'primeng/table';
 import {RouterLink} from '@angular/router';
 import { TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
-import {getLanguageNamesFromFlags} from '../../../enum/languages';
+import {DoctorLanguagesLabelsFr, getLanguageNamesFromFlags} from '../../../enum/languages';
+import {getDoctorSpecialityName} from '../../../enum/doctor-speciality';
 
 @Component({
   imports: [
@@ -34,9 +35,11 @@ export class DoctorListComponent {
   constructor() {
     this.doctorService.getAllDoctors().subscribe(doctors => {
       this.doctorList = doctors
-      console.log(doctors)
+      console.log(this.doctorList)
     });
   }
 
   protected readonly getLanguageNamesFromFlags = getLanguageNamesFromFlags;
+  protected readonly DoctorLanguagesLabelsFr = DoctorLanguagesLabelsFr;
+  protected readonly getDoctorSpecialityName = getDoctorSpecialityName;
 }

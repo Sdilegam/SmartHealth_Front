@@ -1,4 +1,5 @@
 import {Address} from '../address.DTO';
+import {DoctorSpeciality} from '../../enum/doctor-speciality';
 
 export interface DoctorListItem {
   DoctorID: number
@@ -8,4 +9,5 @@ export interface DoctorListItem {
   phoneNumber: string
   address: Address
   languageSpoken: number[]
+  speciality: DoctorSpeciality
 }

@@ -1,10 +1,10 @@
 import {definePreset, palette} from "@primeng/themes";
 import Aura from "@primeng/themes/Aura"
 
-export const MyPreset = definePreset(Aura, {
-  name: "MyPreset",
+export const PatientPreset = definePreset(Aura, {
+  name: "PatientPreset",
   semantic:{
-    primary: palette("#c38cea")
+    primary: palette("#3fc4cc")
   }
 });
 

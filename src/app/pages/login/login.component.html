@@ -1,0 +1,34 @@
+<form [formGroup]="loginForm" (submit)="login()">
+  <p-card styleClass="w-80 mx-auto">
+    <ng-template #title>
+      Se connecter
+    </ng-template>
+    <div class="mb-2">
+      <div>
+        <p-float-label variant="on">
+          <input pInputText formControlName="username"
+                 class="w-full"
+          >
+          <label>Nom d'utilisateur</label>
+        </p-float-label>
+      </div>
+    </div>
+    <div>
+      <div>
+        <p-float-label p-float-label variant="on">
+          <p-password [fluid]="true" formControlName="password" [feedback]="false" [toggleMask]="true" />
+          <label>Mot de passe</label>
+        </p-float-label>
+      </div>
+    </div>
+
+    <ng-template #footer>
+      <p-button type="submit"
+                loadingIcon="pi pi-cog"
+                severity="info"
+                label="Se connecter"
+                [disabled]="loginForm.invalid">
+      </p-button>
+    </ng-template>
+  </p-card>
+</form>

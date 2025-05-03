@@ -11,7 +11,15 @@
 p-button{
 }
 
-p{
+a{
   margin-right: auto;
   margin-left: auto;
+}
+
+p-button{
+  --p-button-text-primary-color: white;
+  &:hover{
+    --p-button-text-primary-color: black;
+
+  }
 }
