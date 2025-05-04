@@ -1,4 +1,3 @@
 export const environment = {
-  baseApiUrl: '' //TODO: Mettre l'url de 'api en prod
-
+  baseApiUrl: 'https://smarthealth.azurewebsites.net/api/'
 };
