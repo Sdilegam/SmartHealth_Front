@@ -11,12 +11,21 @@
     </ng-template>
     <div class='grid grid-cols-[auto_auto_auto_auto] detailRow justify-between'>
       <div>
+        @if (sessionService.session().role == "Patient") {
         <span>
           Medecin:
         </span>
         <span>
-          {{ item.Doctor.Name }}
+          {{item.Doctor.Name }}
         </span>
+        } @else {
+        <span>
+          Patient:
+        </span>
+        <span>
+          {{item.Patient.Name }}
+        </span>
+        }
       </div>
       <div>
         <span>
@@ -31,7 +40,7 @@
           Statut de paiement:
         </span>
         <span>
-          {{ AppointmentTypeLabels[item.Type] }}
+          Non payé
         </span>
       </div>
       <div class="flex row-span-2 gap-x-1 justify-end">

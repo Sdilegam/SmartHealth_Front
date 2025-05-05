@@ -11,6 +11,7 @@ import {AppointmentStatusLabels} from '../../../enum/appointment-status.enum';
 import {Button} from 'primeng/button';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import {ConfirmDialog} from 'primeng/confirmdialog';
+import {SessionService} from '../../../services/session.service';
 
 @Component({
   selector: 'app-appointments-list',
@@ -32,6 +33,7 @@ export class AppointmentsListComponent {
   appointmentService = inject(AppointmentService);
   confirmationService=inject(ConfirmationService);
   messageService=inject(MessageService);
+  sessionService= inject(SessionService);
 
   constructor() {
     this.appointmentService.getAppointments().subscribe(appointments => {

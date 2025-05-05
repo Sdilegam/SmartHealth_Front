@@ -5,12 +5,14 @@
       <span>Accueil</span>
     </a>
   </div>
+  @if (sessionService.session().token&& sessionService.session().role == "Patient") {
   <div>
     <a routerLink="doctor/index">
       <i class="pi pi-list"></i>
       <span>Liste des medecins</span>
     </a>
   </div>
+  }
   <!--    <div>-->
   <!--    <a routerLink="member/register">-->
   <!--      <i class="pi pi-users"></i>-->

@@ -43,7 +43,10 @@
       <span class="inline">
         Liste de médicament
       </span>
+        @if (sessionService.session().role=="Doctor") {
+
         <p-button label="Ajouter" styleClass="float-righ" (onClick)="addMedecine()"></p-button>
+        }
       </ng-template>
       <p-table [columns]="Columns" dataKey="medecineID" [value]="medecineList">
         <ng-template #header let-columns>
