@@ -1,49 +1,83 @@
 <h1 class="text-xl font-bold mb-2">Accueil</h1>
+@if (sessionService.session().token) {
 
-<div class="grid grid-cols-8 grid-rows-4 gap-4">
-  <p-card class="col-span-5">
-    <ng-template #title>
-      <div class="flex">
-        <span>Prochains rendez-vous - Test</span>
-        <p-button class="ml-auto" size=small routerLink='appointment/{{userId}}' label="Voir tout"></p-button>
-      </div>
-    </ng-template>
-    @if (appointmentList.length>0){
-    @for (item of appointmentList; track $index) {
+  <div class="grid grid-cols-3 gap-4">
+    <p-card class="col-span-2">
+      <ng-template #title>
+        <div class="flex">
+          <span>Prochains rendez-vous</span>
+          <p-button class="ml-auto" size=small routerLink='appointments/index' label="Voir tout"></p-button>
+        </div>
+      </ng-template>
+      @if (appointmentList.length > 0) {
+        @for (item of appointmentList; track $index) {
+          <div class="my-4 text-xl">
+            {{ item.StartDate | date:"medium" }}
+            : {{ sessionService.session().role == "Patient" ? item.Doctor.Name : item.Patient.Name }}
+            <hr class="text-gray-200">
+          </div>
+        }
+      } @else {
+        Vous n'avez aucun rendez-vous de prévu
+      }
+    </p-card>
+    <p-card>
+      <ng-template #title>
+        <div class="flex">
+          <span>Résumé de vos informations</span>
+        </div>
+      </ng-template>
       <div>
-      {{item.StartDate | date:"medium" }}: {{item.Doctor.Name}}
-        <hr class="text-gray-200">
+        <span>Nom:</span>
+        <span>{{ userInfo?.displayName }}</span>
       </div>
-    }
-    }
-    @else{
-      Vous n'avez aucun rendez-vous de prévu
-    }
-  </p-card>
-  <p-card styleClass="h-full" class="col-span-3 row-span-4">
-    <ng-template #title>
-      <div class="flex">
-        <span>Résumé de vos informations</span>
-      </div>
-    </ng-template>
-    <div>
-      <span>Nom:</span>
-      <span>{{userInfo?.displayName}}</span>
-    </div>
-    <div>
-      <span>Adresse:</span>
-      <span>
+      <div>
+        <span>Adresse:</span>
+        <span>
         {{ userInfo?.address?.number }}, {{ userInfo?.address?.street }}
-        <br>{{ userInfo?.address?.zip }} {{ userInfo?.address?.city }}
+          <br>{{ userInfo?.address?.zip }} {{ userInfo?.address?.city }}
       </span>
-    </div>
-    <div>
-      <span>Email:</span>
-      <span>{{userInfo?.email}}</span>
-    </div>
-    <div>
-      <span>Numéro de téléphone:</span>
-      <span>{{userInfo?.phoneNumber ?? "Pas d'informations"}}</span>
-    </div>
+      </div>
+      <div>
+        <span>Email:</span>
+        <span>{{ userInfo?.email }}</span>
+      </div>
+      <div>
+        <span>Numéro de téléphone:</span>
+        <span>{{ userInfo.phoneNumber ?? "Pas d'informations" }}</span>
+      </div>
+    </p-card>
+  </div>
+
+} @else {
+  <p-card>
+    <ng-template #title>
+      Bienvenue sur SmartHealth!
+    </ng-template>
+    Veuillez vous connecter pour profiter plainement de l'application
+    <br>
+    Voici quelques logins:<br><br>
+    <ul>
+      <li>
+        Patients:
+        <ul>
+          <li>VincentA</li>
+          <li>NicolasA</li>
+          <li>LambertE</li>
+        </ul>
+      </li>
+      <li>
+        Docteurs:
+        <ul>
+          <li>DRNicolasA</li>
+          <li>DRChevalierG</li>
+          <li>DRAndreC</li>
+          <li>DRHuetA</li>
+          <li>DRMartinO</li>
+        </ul>
+      </li>
+    </ul>
+    <br>
+    Tous les mots de passes sont: 'Test'
   </p-card>
-</div>
+}

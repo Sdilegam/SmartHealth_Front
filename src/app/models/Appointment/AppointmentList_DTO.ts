@@ -11,4 +11,8 @@ export interface AppointmentList_DTO{
     doctorID:number,
     name:string,
   }
+  patient:{
+    patientID:number,
+    name:string,
+}
 }

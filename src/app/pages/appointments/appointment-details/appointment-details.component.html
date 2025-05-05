@@ -1,0 +1,134 @@
+@if (appointmentDetails) {
+  <p-card>
+    <ng-template #title>
+      {{ appointmentDetails.startDate | date:'EEEE dd MMMM y' }}
+    </ng-template>
+    <div class="flex flex-row mt-8">
+      <div>
+        <span>Heure du rendez-vous:</span>
+        <span>{{ appointmentDetails.startDate | date: 'HH:mm' }}</span>
+      </div>
+      <p-divider layout="vertical"></p-divider>
+      <div>
+        <span>Durée:</span>
+        <span>{{ appointmentDetails.endDate.getMinutes() - appointmentDetails.startDate.getMinutes() }} minutes</span>
+      </div>
+      <p-divider layout="vertical"></p-divider>
+      <div>
+        <span>Type de rendez-vous:</span>
+        <span>{{ AppointmentTypeLabels[appointmentDetails.type] }}</span>
+      </div>
+      <p-divider layout="vertical"></p-divider>
+      <div>
+        <span>Status du rendez-vous:</span>
+        <span>{{ AppointmentStatusLabels[appointmentDetails.status] }}</span>
+      </div>
+    </div>
+    <div class="grid grid-cols-2 mt-8 text-xl">
+      <div>
+        <span>Medecins:</span>
+        <span><a routerLink="/doctor/{{appointmentDetails.doctor.doctorID}}"> {{ appointmentDetails.doctor.name }} </a></span>
+      </div>
+      <div>
+        <span>Patient:</span>
+        <span><a
+          routerLink="/patient/{{appointmentDetails.patient.patientID}}"> {{ appointmentDetails.patient.name }} </a></span>
+      </div>
+    </div>
+  </p-card>
+
+  <div class="grid grid-cols-3 mt-4 gap-4">
+    <p-card class="col-span-2">
+      <ng-template #title>
+      <span class="inline">
+        Liste de médicament
+      </span>
+        <p-button label="Ajouter" styleClass="float-righ" (onClick)="addMedecine()"></p-button>
+      </ng-template>
+      <p-table [columns]="Columns" dataKey="medecineID" [value]="medecineList">
+        <ng-template #header let-columns>
+          <tr>
+            @for (col of columns; track col) {
+              <th>
+                {{ col.Name }}
+              </th>
+            }
+          </tr>
+        </ng-template>
+        <ng-template #body let-item>
+          <tr>
+            <td>
+              {{ item.name }}
+            </td>
+            <td>
+              {{ item.quantity }}
+            </td>
+            <td>
+              {{ item.instructions }}
+            </td>
+            <td>
+              <p-button type="button" [pRowToggler]="item" [text]="true" [rounded]="true" [plain]="true"
+                        icon="pi pi-trash"/>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-card>
+
+    <div class="flex flex-col gap-4">
+      <p-card styleClass="">
+        <p-floatlabel variant="on">
+          <textarea pSize="large" rows="4" [disabled]="sessionService.session().role=='Patient'" fluid
+                    pTextarea></textarea>
+          <label>Notes du médecin</label>
+        </p-floatlabel>
+        <p-button styleClass="mt-4 float-right" label="Sauvegarder"></p-button>
+      </p-card>
+      <p-card class="col-start-3">
+        <p-floatlabel variant="on">
+          <textarea pSize="large" rows="4" [disabled]="sessionService.session().role=='Doctor'" fluid
+                    pTextarea></textarea>
+          <label>Notes du patient</label>
+        </p-floatlabel>
+        <p-button styleClass="mt-4 float-right" label="Sauvegarder"></p-button>
+      </p-card>
+    </div>
+  </div>
+
+
+}
+<p-confirm-dialog #newMedecineComfirm>
+  <ng-template #message let-message>
+    <form [formGroup]="newMedecineForm" class="flex flex-col gap-4 mt-4 w-full">
+      <p-floatlabel variant="on">
+        <input pInputText formControlName="name" fluid autocomplete="off"/>
+        <label>Nom du medicament</label>
+      </p-floatlabel>
+      <p-floatlabel variant="on">
+        <input pInputText formControlName="quantity" fluid autocomplete="off"/>
+        <label>Quantité</label>
+      </p-floatlabel>
+      <p-floatlabel variant="on">
+        <textarea rows="2" formControlName="instructions" fluid pTextarea></textarea>
+        <label>Instructions</label>
+      </p-floatlabel>
+    </form>
+  </ng-template>
+  <ng-template #footer>
+    <p-button type="button" pButton
+              icon="pi pi-times" label="Annuler"
+              severity=danger
+              (click)="newMedecineComfirm.onReject()"
+              class="mr-auto"
+    >
+    </p-button>
+    <p-button type="button" pButton
+              icon="pi pi-times" label="Ajouter un médicament"
+              (click)="newMedecineComfirm.onAccept()"
+              [disabled]="newMedecineForm.invalid"
+
+    >
+    </p-button>
+  </ng-template>
+</p-confirm-dialog>
+

@@ -2,7 +2,7 @@ import {Component, inject} from '@angular/core';
 import {Card} from 'primeng/card';
 import {AppointmentList_ViewModel} from '../../../models/Appointment/AppointmentList_ViewModel';
 import {AppointmentService} from '../../../services/appointment.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, RouterLink} from '@angular/router';
 import {AppointmentListItemDTOToViewModel} from '../../../mappers/AppointmentMappers';
 import {DatePipe} from '@angular/common';
 import {AppointmentTypeLabels} from '../../../enum/appointment-type.enum';
@@ -20,6 +20,7 @@ import {ConfirmDialog} from 'primeng/confirmdialog';
     Tag,
     Button,
     ConfirmDialog,
+    RouterLink,
   ],
   templateUrl: './appointments-list.component.html',
   styleUrl: './appointments-list.component.css'
@@ -33,8 +34,7 @@ export class AppointmentsListComponent {
   messageService=inject(MessageService);
 
   constructor() {
-    inject(ActivatedRoute).params.subscribe(params => this.ID = params['id']);
-    this.appointmentService.getAppointments(this.ID).subscribe(appointments => {
+    this.appointmentService.getAppointments().subscribe(appointments => {
       if(appointments)
       this.appointmentList = appointments.map(a => AppointmentListItemDTOToViewModel(a))
     })
@@ -64,7 +64,7 @@ export class AppointmentsListComponent {
   cancel(id:number){
     this.appointmentService.cancelAppointment(id).subscribe({next: ()=>{
         this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Vous avez annulé le rdv' });
-        this.appointmentService.getAppointments(this.ID).subscribe(appointments => {
+        this.appointmentService.getAppointments().subscribe(appointments => {
           if(appointments)
             this.appointmentList = appointments.map(a => AppointmentListItemDTOToViewModel(a))
         })

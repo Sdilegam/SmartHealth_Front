@@ -37,7 +37,7 @@
       <div class="flex row-span-2 gap-x-1 justify-end">
         <p-button class="text-xs" styleClass="text-xs" severity=danger size="small" label="Annuler le rdv" (click)="confirm1($event, item.AppointmentID)" />
         <p-button styleClass="text-xs" severity=warn size="small" label="Repousser le rdv"/>
-        <p-button styleClass="text-xs" severity=info size="small" label="Details"/>
+        <p-button styleClass="text-xs" severity=info size="small" label="Details" [routerLink]="'/appointments/'+item.AppointmentID.toString()"/>
       </div>
       <div>
         <span>

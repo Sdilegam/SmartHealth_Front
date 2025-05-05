@@ -1,3 +1,3 @@
 export const environment = {
-  baseApiUrl: 'https://smarthealth.azurewebsites.net/api/'
+  baseApiUrl: 'https://smarthealth.azurewebsites.net/api'
 };

@@ -1,6 +1,6 @@
 <p-card>
   <ng-template #title>
-    Prendre rendez-vous
+    Prendre rendez-vous chez <strong>{{ doctorName }}</strong>
   </ng-template>
   <full-calendar #calendar [options]="calendarOptions">
     <ng-template #eventContent let-arg>

@@ -11,5 +11,9 @@ export type AppointmentList_ViewModel ={
     DoctorID:number,
     Name:string,
   }
+  Patient:{
+    PatientID:number,
+    Name:string,
+  }
   Severtity:"success" | "secondary" | "info" | "warn" | "danger" | "contrast"| undefined;
 }

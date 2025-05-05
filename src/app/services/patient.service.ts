@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {PatientUserVM} from '../models/Patient/PatientUserVM';
+import {UserVM} from '../models/auth/UserVM';
 import {environment} from '../../environments/environment';
 
 @Injectable({
@@ -10,5 +10,5 @@ export class PatientService {
   httpClient = inject(HttpClient);
   constructor() { }
 
-  getUserInfo = ()=> this.httpClient.get<PatientUserVM>(environment.baseApiUrl + `/patient`)
+  getUserInfo = ()=> this.httpClient.get<UserVM>(environment.baseApiUrl + `/patient`)
 }

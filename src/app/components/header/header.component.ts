@@ -4,6 +4,8 @@ import {SessionService} from '../../services/session.service';
 import {RouterLink} from '@angular/router';
 import {Menu} from 'primeng/menu';
 import {MenuItem, MenuItemCommandEvent} from 'primeng/api';
+import {usePreset} from '@primeng/themes';
+import {PatientPreset} from '../../primePresets/PatientPreset';
 
 @Component({
   selector: 'app-header',
@@ -28,7 +30,10 @@ export class HeaderComponent {
       {
         label: 'Se déconnecter',
         icon: 'pi pi-sign-out',
-        command: ()=> this.sessionService.clear()
+        command: ()=> {
+          this.sessionService.clear()
+          usePreset(PatientPreset);
+        }
       }
   ];
 

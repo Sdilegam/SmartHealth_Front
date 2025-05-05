@@ -18,7 +18,7 @@ import {AppointmentType, AppointmentTypeLabels} from '../../../enum/appointment-
 import {Select} from 'primeng/select';
 import {enumToSelectOptions} from '../../../utils/enumToSelectOptions';
 import { TextareaModule } from 'primeng/textarea';
-import {DatePipe, formatDate} from '@angular/common';
+import {formatDate} from '@angular/common';
 
 @Component({
   imports: [
@@ -38,6 +38,7 @@ export class DoctorAppointmentComponent {
   doctorID!: number;
   calAPI!: Calendar;
   appointmentTypes = enumToSelectOptions(AppointmentType, AppointmentTypeLabels)
+  doctorName!:string;
 
   doctorService = inject(DoctorService);
   formBuilder = inject(FormBuilder);
@@ -138,6 +139,7 @@ export class DoctorAppointmentComponent {
         .subscribe({
           next: data => {
             console.log(data)
+            this.doctorName = data.doctorName;
             this.calendarOptions.businessHours = data.workingHours;
             this.calendarOptions.events = data.slotsTaken
               .map(function (v) {
