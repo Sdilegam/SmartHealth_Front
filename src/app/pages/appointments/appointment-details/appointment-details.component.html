@@ -45,7 +45,7 @@
       </span>
         @if (sessionService.session().role=="Doctor") {
 
-        <p-button label="Ajouter" styleClass="float-righ" (onClick)="addMedecine()"></p-button>
+        <p-button label="Ajouter" styleClass="float-right" (onClick)="addMedecine()"></p-button>
         }
       </ng-template>
       <p-table [columns]="Columns" dataKey="medecineID" [value]="medecineList">
